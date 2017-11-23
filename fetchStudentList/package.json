@@ -1,0 +1,14 @@
+{
+  "name": "fetch-student-list",
+  "version": "1.0.0",
+  "description": "抓取学生名单储存到数据库的爬虫",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Youthink",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.11.1"
+  }
+}
