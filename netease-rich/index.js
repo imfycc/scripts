@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Koa = require('koa');
-const liveload = require('koa-liveload');
 const bodyParser = require('koa-bodyparser');
 const download = require('./download');
 const koaJson2xlsx = require('koa-json2xlsx');
@@ -21,7 +20,6 @@ const main = async (ctx) => {
 
 
 app.use(bodyParser());
-app.use(liveload(__dirname));
 app.use(koaJson2xlsx());
 app.use(main);
 

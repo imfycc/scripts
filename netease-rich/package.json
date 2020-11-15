@@ -1,10 +1,22 @@
 {
+  "name": "netease-rich",
+  "version": "0.0.1",
+  "description": "网易有钱账单数据导出",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Youthink/scripts/tree/master/netease-rich"
+  },
+  "author": "hufy3651@foxmail.com",
+  "license": "MIT",
+  "homepage": "http://163.imfy.cc",
   "dependencies": {
+    "dayjs": "^1.9.6",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-json2xlsx": "^1.0.3",
-    "koa-liveload": "^0.0.2",
-    "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
     "puppeteer": "^5.4.1"
   }
