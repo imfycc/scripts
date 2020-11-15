@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易有钱账单数据导出-小猿大圣-</title>
+    <style>
+      body{
+        height: 100vh;
+        overflow: hidden;
+        background-color: #ff5956;
+        background-image: url(https://static01.imgkr.com/temp/887ee92d9eb34238839b0e6b284a4bc5.png);
+        background: url(https://static01.imgkr.com/temp/887ee92d9eb34238839b0e6b284a4bc5.png),linear-gradient(to bottom right,#ff5956,#ff566e,#ff864b 80%);
+        background-repeat: repeat,no-repeat;
+      }
+      main {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-box h1 {
+        color: #FFF;
+        font-size: 28px;
+        margin-bottom:40px; 
+      }
+      .form-item {
+        display: flex;
+        margin-bottom: 10px;
+      }
+      .form-item label {
+        flex-shrink: 0;
+        color: #FFF;
+        font-size: 18px;
+        line-height: 2;
+        margin-right: 10px;
+      }
+      .form-item input {
+        border: 0;
+        border-radius: 5px;
+        height: 30px;
+        width: 100%;
+        font-size: 16px;
+        padding: 3px 10px;
+        outline: none;
+      }
+      .submit-box button {
+        width: 100%;
+        border: 0;
+        border-radius: 5px;
+        font-size: 18px;
+        margin-top: 15px;
+        height: 35px;
+        color: #FFF;
+        background: #32b16c;
+        outline: none;
+      }
+      .tip {
+        margin-top: 8px;
+        font-size: 14px;
+        text-align: center;
+      }
+      .tip a {
+        text-decoration: none;
+        color: #FFF;
+      }
+      .tip a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <form class="login-box" action="/result" method="POST" name="login">
+        <h1>💰 网易·有钱 账单导出</h1>
+        <div class="form-item">
+          <label>邮箱</label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="form-item">
+          <label>密码</label>
+          <input type="password" name="password" required>
+        </div>
+        <div class="submit-box">
+          <button id="login-submit" type="submit">登录</button>
+        </div>
+        <div class="tip">
+          <a href="https://www.yuque.com/docs/share/b75e5589-c399-4f0a-a29d-01d678e86f69?# 《账单数据导出小工具》" target="_blank">📌 使用前必读，解决您的所有疑问 🎉</a>
+        </div>
+      </form>
+    </main>
+    <script>
+    </script>
+  </body>
+</html>
