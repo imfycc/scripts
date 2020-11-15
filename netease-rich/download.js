@@ -1,6 +1,6 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
-const moment = require('moment');
+const dayjs = require('dayjs');
 const login = require('./login');
 
 const tradeTypeArr = ['INCOME', 'OUTGO', 'TRANSFER'];
@@ -61,7 +61,7 @@ const getBillData = async (currPage, tradeType, token, cookiesStr) => {
 const formatData = arr => {
   return arr.map(o => {
     return {
-      '时间': moment(o.date).format('YYYY-MM-DD HH:mm'),
+      '时间': dayjs(o.date).format('YYYY-MM-DD HH:mm'),
       '分类': o && o.category && o.category.categoryName,
       '类型': tradeTypeZHArr[o.tradeType - 1],
       '金额': (o.outMoney || o.inMoney).slice(1),
