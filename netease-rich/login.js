@@ -16,11 +16,17 @@ async function login(email, password) {
   const loginBtn = await frame.$('#dologin');
   loginBtn.click();
 
-  await page.waitForNavigation();
+  try {
+    await page.waitForNavigation({ timeout: 5000 });
+  } catch(e) {
+    console.log('error login:', e);
+    return { error: 'login fail'}
+  }
+
   const cookies = await page.cookies();
   const token = getToken(cookies);
   const cookiesStr = transformCookies(cookies);
-
+  console.log('debug:success_login');
   return { token, cookiesStr };
 }
 
