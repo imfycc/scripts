@@ -55,23 +55,27 @@
         background: #32b16c;
         outline: none;
       }
+      .error {
+        color: gold;
+        font-size: 14px;
+        text-align: center;
+      }
       .tip {
         margin-top: 8px;
         font-size: 14px;
         text-align: center;
       }
       .tip a {
-        text-decoration: none;
         color: #FFF;
       }
       .tip a:hover {
-        text-decoration: underline;
+        text-decoration: none;
       }
     </style>
   </head>
   <body>
     <main>
-      <form class="login-box" action="/result" method="POST" name="login">
+      <form class="login-box" action="/login" method="POST" name="login">
         <h1>💰 网易·有钱 账单导出</h1>
         <div class="form-item">
           <label>邮箱</label>
@@ -81,15 +85,52 @@
           <label>密码</label>
           <input type="password" name="password" required>
         </div>
+        <% if (error) { %>
+        <div class="error">
+          <p><%= error %></p>
+        </div>
+        <% } %>
         <div class="submit-box">
-          <button id="login-submit" type="submit">登录</button>
+          <button id="login-submit" type="submit">导出</button>
         </div>
         <div class="tip">
-          <a href="https://www.yuque.com/docs/share/b75e5589-c399-4f0a-a29d-01d678e86f69?# 《账单数据导出小工具》" target="_blank">📌 使用前必读，解决您的所有疑问 🎉</a>
+          <a href="https://www.yuque.com/docs/share/b75e5589-c399-4f0a-a29d-01d678e86f69?# 《账单数据导出小工具》" target="_blank">📌 使用前必读，👉 解决您的所有疑问 🎉</a>
         </div>
       </form>
     </main>
     <script>
+      const loginBtn = document.getElementById('login-submit');
+      loginBtn.addEventListener('click', () => {
+        const email = document.login.email.value;
+        const password = document.login.password.value;
+        if (email && password) {
+          loginBtn.style.background='#999';
+          let countdown = 100;
+          function setText(elm) {
+            if (countdown > 0) {
+              countdown--;
+            } else {
+              document.login.reset();
+              window.location = '/';
+            }
+            elm.innerHTML = `正在导出...还需等待 ${countdown} 秒`;
+          }
+          setInterval(() => setText(loginBtn), 1000);
+
+          document.login.submit();
+          loginBtn.disabled = true;
+        }
+        const emailElm = document.login.email;
+        const passwdElm = document.login.password;
+
+        const removeErrDom = () => {
+          const errorElm = document.querySelector('.error');
+          const parent = errorElm.parentElement;
+          parent.removeChild(errorElm);
+        }
+        emailElm.addEventListener('focus', removeErrDom);
+        passwdElm.addEventListener('focus', removeErrDom);
+      })
     </script>
   </body>
 </html>
