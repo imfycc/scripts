@@ -16,6 +16,7 @@
     "dayjs": "^1.9.6",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-ejs": "^4.3.0",
     "koa-json2xlsx": "^1.0.3",
     "node-fetch": "^2.6.1",
     "puppeteer": "^5.4.1"
