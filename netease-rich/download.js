@@ -1,7 +1,6 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 const dayjs = require('dayjs');
-const login = require('./login');
 
 const tradeTypeArr = ['INCOME', 'OUTGO', 'TRANSFER'];
 const tradeTypeZHArr = ['收入', '支出', '转帐'];
@@ -51,7 +50,7 @@ const sleep = delay => {
 }
 
 const getBillData = async (currPage, tradeType, token, cookiesStr) => {
-  await sleep(currPage * 500);
+  await sleep(currPage * 100);
   const res = await loadData(currPage, tradeType, token, cookiesStr);
   const data = await tranformResponse(res);
   const { result = []} = data;
@@ -63,6 +62,7 @@ const formatData = arr => {
     return {
       '时间': dayjs(o.date).format('YYYY-MM-DD HH:mm'),
       '分类': o && o.category && o.category.categoryName,
+      '子分类': o && o.subCategory && o.subCategory.categoryName,
       '类型': tradeTypeZHArr[o.tradeType - 1],
       '金额': (o.outMoney || o.inMoney).slice(1),
       '账户1': (o.outFund || o.inFund),
@@ -78,7 +78,7 @@ const allWithProgress = (requests, callback) => {
      item.then(() => {
        index ++;
        const progress = (index * 100 / requests.length).toFixed(2);
-       callback(progress);
+       callback && callback(progress);
      })
    });
    return Promise.all(requests);
@@ -90,7 +90,7 @@ const getRequestQueues = async (token, cookiesStr) => {
   for(let num = 0; num < tradeTypeArr.length; num++) {
     const res = await loadData(0, tradeTypeArr[num], token, cookiesStr);
     const data = await tranformResponse(res);
-    const { pagination = {}, result = []} = data;
+    const { pagination = {} } = data;
     const { totalPage = 1 } = pagination;
 
     for(let page = 0; page < totalPage; page++) {
@@ -101,15 +101,14 @@ const getRequestQueues = async (token, cookiesStr) => {
   return requestQueues;
 }
 
-const load = async (email, passwd) => {
-  const { token, cookiesStr } = await login(email, passwd);
+const load = async (token, cookiesStr) => {
   const requestQueues = await getRequestQueues(token, cookiesStr);
-  const all = await allWithProgress(requestQueues, progress => console.log(progress));
+  console.log('debug:start_export');
+  const all = await allWithProgress(requestQueues);
   const resultArr = all.reduce((acc, item) => {
     acc.push(...item)
     return acc;
   });
-
   return formatData(resultArr);
 }
 
