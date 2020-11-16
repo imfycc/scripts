@@ -1,9 +1,4 @@
-const puppeteer = require('puppeteer');
-
-async function login(email, password) {
-  const browser = await puppeteer.launch({
-    headless: true
-  });
+async function login(browser, email, password) {
   page = await browser.newPage();
   await page.goto('https://qian.163.com/pc/login.html');
   const frame = await page.frames()[1];
@@ -17,7 +12,7 @@ async function login(email, password) {
   loginBtn.click();
 
   try {
-    await page.waitForNavigation({ timeout: 5000 });
+    await page.waitForNavigation({timeout: 6000});
   } catch(e) {
     console.log('error login:', e);
     return { error: 'login fail'}
@@ -26,6 +21,7 @@ async function login(email, password) {
   const cookies = await page.cookies();
   const token = getToken(cookies);
   const cookiesStr = transformCookies(cookies);
+  await page.close();
   console.log('debug:success_login');
   return { token, cookiesStr };
 }
