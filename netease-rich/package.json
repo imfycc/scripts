@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "网易有钱账单数据导出",
   "scripts": {
-    "dev": "node index.js"
+    "start": "pm2 start index.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
     "koa-ejs": "^4.3.0",
     "koa-json2xlsx": "^1.0.3",
     "node-fetch": "^2.6.1",
+    "pm2": "^4.5.0",
     "puppeteer": "^5.4.1"
   }
 }
