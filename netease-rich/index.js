@@ -11,7 +11,7 @@ const main = async (ctx) => {
     const postData = ctx.request.body;
     const { email, password } = postData || {};
     const data = await download(email, password);
-    ctx.xlsx('netease-rich.xlsx', data);
+    ctx.xlsx(`netease-rich-${Date.now()}.xlsx`, data);
   } else {
     ctx.response.type = 'html';
     ctx.response.body = fs.createReadStream('./index.html');
