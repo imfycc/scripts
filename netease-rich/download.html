@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易有钱账单数据导出-小猿大圣-</title>
+    <style>
+      body{
+        height: 100vh;
+        overflow: hidden;
+        background-color: #ff5956;
+        background-image: url(https://static01.imgkr.com/temp/887ee92d9eb34238839b0e6b284a4bc5.png);
+        background: url(https://static01.imgkr.com/temp/887ee92d9eb34238839b0e6b284a4bc5.png),linear-gradient(to bottom right,#ff5956,#ff566e,#ff864b 80%);
+        background-repeat: repeat,no-repeat;
+      }
+      main {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-box h1 {
+        color: #FFF;
+        font-size: 28px;
+        margin-bottom:40px; 
+      }
+      .countdown {
+        text-align: center;
+        color: gold;
+        margin-bottom: 10px;
+      }
+      .tip {
+        margin-top: 8px;
+        font-size: 14px;
+        text-align: center;
+      }
+      .tip a {
+        color: #FFF;
+      }
+      .tip a:hover {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <form class="login-box" action="/login" method="POST" name="login">
+        <h1>💰 网易·有钱 账单导出</h1>
+        <div class="countdown">
+          <p>正在导出... 请稍后 🚀 </p>
+          <p>大约还需等待 <span id="countdown"></span> 秒 ⏰</p>
+        </div>
+        <div class="tip">
+          <a href="https://www.yuque.com/docs/share/b75e5589-c399-4f0a-a29d-01d678e86f69?# 《账单数据导出小工具》" target="_blank">👉 解决您的所有疑问 🎉</a>
+        </div>
+      </form>
+    </main>
+  </body>
+  <script>
+    const element = document.getElementById('countdown');
+    let countdown = 100;
+    function setText(elm) {
+      if (countdown > 0) {
+        countdown--;
+      }
+      elm.innerHTML = countdown;
+    }
+    setInterval(()=> setText(element), 1000);
+  </script>
+</html>
