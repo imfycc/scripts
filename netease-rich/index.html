@@ -99,37 +99,39 @@
       </form>
     </main>
     <script>
-      const loginBtn = document.getElementById('login-submit');
-      loginBtn.addEventListener('click', () => {
-        const email = document.login.email.value;
-        const password = document.login.password.value;
-        if (email && password) {
-          loginBtn.style.background='#999';
-          let countdown = 100;
-          function setText(elm) {
-            if (countdown > 0) {
-              countdown--;
-            } else {
-              document.login.reset();
-              window.location = '/';
+      document.addEventListener('DOMContentLoaded', () => {
+        const loginBtn = document.getElementById('login-submit');
+        loginBtn.addEventListener('click', () => {
+          const email = document.login.email.value;
+          const password = document.login.password.value;
+          if (email && password) {
+            loginBtn.style.background='#999';
+            let countdown = 100;
+            function setText(elm) {
+              if (countdown > 0) {
+                countdown--;
+              } else {
+                document.login.reset();
+                window.location = '/';
+              }
+              elm.innerHTML = `正在导出...还需等待 ${countdown} 秒`;
             }
-            elm.innerHTML = `正在导出...还需等待 ${countdown} 秒`;
+            setInterval(() => setText(loginBtn), 1000);
+
+            document.login.submit();
+            loginBtn.disabled = true;
           }
-          setInterval(() => setText(loginBtn), 1000);
+          const emailElm = document.login.email;
+          const passwdElm = document.login.password;
 
-          document.login.submit();
-          loginBtn.disabled = true;
-        }
-        const emailElm = document.login.email;
-        const passwdElm = document.login.password;
-
-        const removeErrDom = () => {
-          const errorElm = document.querySelector('.error');
-          const parent = errorElm.parentElement;
-          parent.removeChild(errorElm);
-        }
-        emailElm.addEventListener('focus', removeErrDom);
-        passwdElm.addEventListener('focus', removeErrDom);
+          const removeErrDom = () => {
+            const errorElm = document.querySelector('.error');
+            const parent = errorElm.parentElement;
+            parent.removeChild(errorElm);
+          }
+          emailElm.addEventListener('change', removeErrDom);
+          passwdElm.addEventListener('change', removeErrDom);
+        })
       })
     </script>
   </body>
