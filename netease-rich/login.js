@@ -12,18 +12,42 @@ async function login(browser, email, password) {
   loginBtn.click();
 
   try {
-    await page.waitForNavigation({timeout: 6000});
+    await page.waitForResponse('https://dl.reg.163.com/dl/l', { timeout: 5000 });
   } catch(e) {
-    console.log('error login:', e);
-    return { error: 'login fail'}
+    console.log(`debug:login_${e.name}`);
+    await page.close();
+    return { error: '登录超时，请重试~' }
   }
 
-  const cookies = await page.cookies();
-  const token = getToken(cookies);
-  const cookiesStr = transformCookies(cookies);
-  await page.close();
-  console.log('debug:success_login');
-  return { token, cookiesStr };
+  let userInfoRes = null, errorText = null;
+
+  try {
+    userInfoRes = await page.waitForResponse(
+      res => res.url().startsWith('https://qian.163.com/pc/xhr/user/getUserInfo.do'),
+      { timeout: 3000 }
+    );
+  } catch(e) {
+    console.log(`debug:userInfo_${e.name}`);
+    const errorElm = await frame.$('.ferrorhead');
+    const errorElm2 = await frame.$('.ferrorhead2');
+    const errorElm3 = await frame.$('.ferrorhead3');
+    if (errorElm || errorElm2 || errorElm3) {
+      errorText = await (errorElm || errorElm2 || errorElm3).evaluate(node => node.innerText);
+    }
+    await page.close();
+    return { error: errorText || '登录超时，请重试~' }
+  }
+
+  if (userInfoRes && userInfoRes.ok && userInfoRes.ok()) {
+    const cookies = await page.cookies();
+    const token = getToken(cookies);
+    const cookiesStr = transformCookies(cookies);
+    await page.close();
+    console.log('debug:success_login');
+    return { token, cookiesStr };
+  }
+  console.log('debug:login_last_error');
+  return { error: '未知错误~' };
 }
 
 function getToken(cookies) {
