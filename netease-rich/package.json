@@ -19,6 +19,6 @@
     "koa-ejs": "^4.3.0",
     "koa-json2xlsx": "^1.0.3",
     "node-fetch": "^2.6.1",
-    "puppeteer": "^5.4.1"
+    "puppeteer": "^5.5.0"
   }
 }
