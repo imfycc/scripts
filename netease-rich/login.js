@@ -27,13 +27,13 @@ async function login(browser, email, password) {
       { timeout: 3000 }
     );
   } catch(e) {
-    console.log(`debug:userInfo_${e.name}`);
     const errorElm = await frame.$('.ferrorhead');
     const errorElm2 = await frame.$('.ferrorhead2');
     const errorElm3 = await frame.$('.ferrorhead3');
     if (errorElm || errorElm2 || errorElm3) {
       errorText = await (errorElm || errorElm2 || errorElm3).evaluate(node => node.innerText);
     }
+    console.log(`debug:userInfo_${e.name}_${errorText}`);
     await page.close();
     return { error: errorText || '登录超时，请重试~' }
   }
